@@ -151,7 +151,7 @@ class TestClassAndMethodAttrs(AttributePluginTester):
     args = ["-a", "meth_attr=method,cls_attr=class"]
 
     def verify(self):
-        if compat311:
+        if compat_311:
             assert '(test_attr.TestClassAndMethodAttrs.test_method) ... ok' in self.output
         else:
             assert '(test_attr.TestClassAndMethodAttrs) ... ok' in self.output
@@ -170,7 +170,7 @@ class TestTopLevelNotSelected(AttributePluginTester):
         # rather than the attribute plugin, but the issue more easily manifests
         # itself when using attributes.
         assert 'test.test_b ... ok' in self.output
-        if compat311:
+        if compat_311:
             assert 'test_a (test.TestBase.test_a) ... ok' in self.output
         else:
             assert 'test_a (test.TestBase) ... ok' in self.output
