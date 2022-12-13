@@ -2,11 +2,13 @@
 Tests that plugins can override loadTestsFromTestCase
 """
 import os
+import sys
 import unittest
 from nose import loader
 from nose.plugins import PluginTester
 from nose.plugins.base import Plugin
 
+compat_311 = sys.version_info >= (3, 11)
 
 support = os.path.join(os.path.dirname(__file__), 'support')
 
@@ -44,9 +46,14 @@ class TestLoadTestsFromTestCaseHook(PluginTester, unittest.TestCase):
     suitepath = os.path.join(support, 'ltftc')
 
     def runTest(self):
-        expect = [
-            'test_value (%s.Derived) ... ERROR' % __name__,
-            'test_value (tests.Tests) ... ok']
+        if compat_311:
+            expect = [
+                'test_value (%s.Derived.test_value) ... ERROR' % __name__,
+                'test_value (tests.Tests.test_value) ... ok']
+        else:
+            expect = [
+                'test_value (%s.Derived) ... ERROR' % __name__,
+                'test_value (tests.Tests) ... ok']
         print(str(self.output))
         for line in self.output:
             if expect:
