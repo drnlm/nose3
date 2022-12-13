@@ -107,11 +107,11 @@ the test loader.
 Now we can execute a test run using the custom selector, and the
 project's tests will be collected.
 
-    >>> run(argv=argv, plugins=[UseMySelector()])
-    test_add (basic.TestBasicMath) ... ok
-    test_sub (basic.TestBasicMath) ... ok
-    test_tuple_groups (my_function.MyFunction) ... ok
-    test_cat (cat.StringsCat) ... ok
+    >>> run(argv=argv, plugins=[UseMySelector()]) # doctest: +ELLIPSIS
+    test_add (basic.TestBasicMath...) ... ok
+    test_sub (basic.TestBasicMath...) ... ok
+    test_tuple_groups (my_function.MyFunction...) ... ok
+    test_cat (cat.StringsCat...) ... ok
     <BLANKLINE>
     ----------------------------------------------------------------------
     Ran 4 tests in ...s

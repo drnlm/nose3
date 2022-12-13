@@ -8,6 +8,8 @@ from nose.plugins.xunit import Xunit
 from nose.plugins.skip import Skip
 from nose.plugins import PluginTester
 
+compat_311 = sys.version_info >= (3, 11)
+
 support = os.path.join(os.path.dirname(__file__), 'support')
 xml_results_filename = os.path.join(support, "xunit.xml")
 
@@ -25,7 +27,10 @@ class TestXUnitPlugin(PluginTester, unittest.TestCase):
         
         assert "ERROR: test_error" in self.output
         assert "FAIL: test_fail" in self.output
-        assert "test_skip (test_xunit_as_suite.TestForXunit) ... SKIP: skipit" in self.output
+        if compat311:
+            assert "test_skip (test_xunit_as_suite.TestForXunit.test_skip) ... SKIP: skipit" in self.output
+        else:
+            assert "test_skip (test_xunit_as_suite.TestForXunit) ... SKIP: skipit" in self.output
         assert "XML: %s" % xml_results_filename in self.output
         
         f = codecs.open(xml_results_filename,'r', encoding='utf8')
